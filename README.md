@@ -1,2 +1,5 @@
-# expo-deploiement-example
-An example on how to use release channels, github actions and semantic release for a CI-CD
+# Un flux de déploiement automatisé avec Expo
+
+Ce dépôt fait écho à [l'article publié sur le blog de Matière Noire](https://www.matierenoire.io/actualite/flux-deploiement-automatise-expo). Toute participation est la bienvenue.
+
+
