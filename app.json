@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "expo-deploiement-example",
+    "slug": "expo-deploiement-example",
+    "version": "2.0.0",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.expo-deploiement-example.test",
+      "versionCode": 0
+    },
+    "ios": {
+      "bundleIdentifier": "com.expo-deploiement-example.test",
+      "buildNumber": "2.0.0"
+    }
+  }
+}

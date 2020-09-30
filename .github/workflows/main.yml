@@ -1,0 +1,43 @@
+name: Handle expo build
+
+on:
+  push:
+    branches: [next, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      #expo semantic release crashes if semantic-releases/error is not there
+      - name: Install dependencies
+        run: yarn
+
+      - name: Expo Semantic Release
+        uses: mgibeau/semantic-release-expo-github-action@v0.2-alpha
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+          expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
+          expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
+
+      - name: Build iOS app
+        run: expo build:ios --release-channel=${GITHUB_REF#refs/*/} --no-wait
+        env:
+          EXPO_APPLE_ID: ${{secrets.EXPO_APPLE_ID}}
+          EXPO_APPLE_ID_PASSWORD: ${{secrets.EXPO_APPLE_ID_PASSWORD}}
+
+      - name: Build Android app
+        run: expo build:android --release-channel=${GITHUB_REF#refs/*/} --no-wait
+
+      - name: Publish app
+        run: expo publish --release-channel=${GITHUB_REF#refs/*/}
